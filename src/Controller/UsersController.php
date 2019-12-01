@@ -67,8 +67,8 @@ class UsersController extends AbstractFOSRestController
     }
 
     /**
-     * @param int $debetUserId User from
-     * @param int $creditUserId User to
+     * @param int $debetUserId User Id from
+     * @param int $creditUserId User Id to
      * @param float $summ Money amount to transfer
      * @return bool true if success
      *
@@ -78,7 +78,7 @@ class UsersController extends AbstractFOSRestController
     {
         $conn = $this->getDoctrine()->getConnection();
         $stmt = $conn->prepare("CALL makeTransaction($debetUserId, $creditUserId, $summ)");
-       return $stmt->execute();
+        return $stmt->execute();
     }
 
     /**
