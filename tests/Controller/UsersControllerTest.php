@@ -55,6 +55,7 @@ class UsersControllerTest extends WebTestCase
 
     public static function tearDownAfterClass()
     {
+        //to clean test data in the db
         $doctrine = static::$client->getContainer()->get('doctrine');
         $conn = $doctrine->getConnection();
         $stmt = $conn->prepare('DELETE FROM `transactions` WHERE `debet_user_id`='.static::$testUserId);
@@ -118,11 +119,10 @@ class UsersControllerTest extends WebTestCase
         static::$client->request('POST', static::API_URL.'/users/'.static::$testUserId.'/transactions', ['to'=>1, 'summ'=>5000]);
         $answer = json_decode(static::$client->getResponse()->getContent(), true);
 
+        $this->assertEquals(Response::HTTP_CREATED, static::$client->getResponse()->getStatusCode());
         $this->assertArrayNotHasKey('error', $answer);
         $this->assertArrayHasKey('state', $answer);
         $this->assertEquals($answer['state'], 'ok');
-
-        //$this->testGetUserByIdForTestUser();
     }
 
     public function testGetUserByIdForTestUser()

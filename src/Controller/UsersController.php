@@ -85,6 +85,7 @@ class UsersController extends AbstractFOSRestController
      * @Rest\Post("/users/{id}/transactions", name="make_transaction", requirements={"id"="[-]?\d+"})
      *
      * @param int $id User ID debet (from)
+     * @param Request $request The request itself
      * @return Response
      */
     public function makeTransaction($id, Request $request)
